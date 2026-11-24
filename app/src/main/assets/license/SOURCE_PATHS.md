@@ -1,6 +1,6 @@
-# GPL 源码公开说明
+# 源码公开说明
 
-本 APK 属于 tiedun 项目，主许可证为 GPL-3.0。
+本 APK 属于 tiedun 项目，主许可证为木兰宽松许可证第 2 版（Mulan PSL v2，SPDX: MulanPSL-2.0）。
 
 ## 源码直达路径
 
@@ -20,14 +20,14 @@
 
 ## APK 内置许可文件
 
-- `assets/GPL/LICENSE-GPL-3.0.txt`
-- `assets/GPL/NOTICE.txt`
-- `assets/GPL/THIRD_PARTY_NOTICES.md`
-- `assets/GPL/DEPENDENCY_LICENSES.md`（release 运行时传递依赖清单）
-- `assets/GPL/README.md`
-- `assets/GPL/APK-README.md`
+- `assets/license/LICENSE-MulanPSL-2.0.txt`
+- `assets/license/NOTICE.txt`
+- `assets/license/THIRD_PARTY_NOTICES.md`
+- `assets/license/DEPENDENCY_LICENSES.md`（release 运行时传递依赖清单）
+- `assets/license/README.md`
+- `assets/license/APK-README.md`
 - 历史二进制与源码溯源：仓库 `docs/APK源码对应表.md`（需按实际 APK 的 SHA-256 核对）
 
-分发 APK 时必须同时提供完整源码、GPL-3.0 许可证和第三方许可声明。
+分发 APK 时本项目要求同时提供完整源码、MulanPSL-2.0 许可证和第三方许可声明。以 GPL-3.0 发布的历史版本另按其原有条款提供 GPL-3.0 文本与对应源码。
 
 构建版本校验：分发方必须在 APK 下载页标出该二进制文件的 SHA-256，以及生成它的源码提交或同一发布位置的源码压缩包；仅凭 `versionName` 或固定 `main` 链接无法确认对应源码。

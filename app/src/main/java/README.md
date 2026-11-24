@@ -1,6 +1,6 @@
 # 主源码目录
 
-这里是 tiedun 铁盾的主源码入口。项目按 GPL-3.0 发布，改动时请保留源码文件中的 GPL 头部声明，并遵守根目录 `LICENSE` 与 `THIRD_PARTY_NOTICES.md`。
+这里是 tiedun 铁盾的主源码入口。项目按木兰宽松许可证第 2 版（MulanPSL-2.0）发布，改动时请保留源码文件中的 MulanPSL-2.0 头部声明，并遵守根目录 `LICENSE` 与 `THIRD_PARTY_NOTICES.md`。
 
 ## 主源码路径
 
@@ -40,6 +40,6 @@
 
 ## 许可
 
-本项目主许可证为 GPL-3.0。所有原创源码按 GPL-3.0 分发，完整许可证见仓库根目录 `LICENSE`。
+本项目主许可证为 MulanPSL-2.0。所有原创源码按 MulanPSL-2.0 分发，完整许可证见仓库根目录 `LICENSE`。
 
-APK 内置许可与源码说明位于：`app/src/main/assets/GPL/`。
+APK 内置许可与源码说明位于：`app/src/main/assets/license/`。

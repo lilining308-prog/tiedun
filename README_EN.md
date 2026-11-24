@@ -49,12 +49,13 @@ Transitive dependency inventory (AndroidX / Material / Kotlin / Coroutines, etc.
 
 ## License and compliance
 
-- Primary license: **GPL-3.0** (see [LICENSE](LICENSE)).
+- Primary license: **Mulan PSL v2 (MulanPSL-2.0)** (see [LICENSE](LICENSE)).
 - Copyright and full license texts for upstream references: [NOTICE](NOTICE).
-- All original source is distributed under GPL-3.0 with GPL headers retained; resources, build scripts, docs, and APK distribution materials ship with the project.
+- All original source is distributed under MulanPSL-2.0 with MulanPSL-2.0 headers retained; resources, build scripts, docs, and APK distribution materials ship with the project.
 - When distributing an APK, provide the matching source version, `LICENSE`, `NOTICE`, and `THIRD_PARTY_NOTICES.md`; a branch link alone does not prove source correspondence.
-- `hnpdsyn/PhoneGuard` and `me.lucky/wasted` must not be copied, rewritten, or reused. Current code uses only public Android SDK APIs, the Shizuku dependency, and original GPL-3.0 code.
-- APKs embed license and source instructions under `assets/GPL/`; third-party license materials live in [third_party/](third_party/).
+- `hnpdsyn/PhoneGuard` and `me.lucky/wasted` must not be copied, rewritten, or reused. Current code uses only public Android SDK APIs, the Shizuku dependency, and original code of this project.
+- APKs embed license and source instructions under `assets/license/`; third-party license materials live in [third_party/](third_party/).
+- Historical releases under GPL-3.0 ([deliverables/](deliverables/), [apk/](apk/)) remain licensed as originally granted; releases after this relicensing are under MulanPSL-2.0.
 
 ## Features
 
@@ -126,4 +127,4 @@ Safety boundaries:
 
 ---
 
-Released under GPL-3.0. Modifications and extensions are welcome — keep copyright and upstream notices, and follow [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Released under Mulan PSL v2 (MulanPSL-2.0). Modifications and extensions are welcome — keep copyright and upstream notices, mark your changes, and follow [LICENSE](LICENSE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

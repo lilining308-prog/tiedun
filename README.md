@@ -49,12 +49,13 @@ Android 设备防护与应急处理工具：当设备被锁机程序或无障碍
 
 ## 开源许可与合规
 
-- 本项目主许可证为 **GPL-3.0**（见 [LICENSE](LICENSE)）。
+- 本项目主许可证为 **木兰宽松许可证第 2 版（MulanPSL-2.0）**（见 [LICENSE](LICENSE)）。
 - 上游参考项目的版权归属与完整许可文本见 [NOTICE](NOTICE)。
-- 所有原创源码按 GPL-3.0 分发，源码文件保留 GPL 头部声明；资源、构建脚本、文档与 APK 分发材料均随项目发布。
+- 所有原创源码按 MulanPSL-2.0 分发，源码文件保留 MulanPSL-2.0 头部声明；资源、构建脚本、文档与 APK 分发材料均随项目发布。
 - 分发 APK 时须提供与该 APK 对应的源码版本、`LICENSE`、`NOTICE`、`THIRD_PARTY_NOTICES.md`；仅提供分支链接不足以证明源码对应关系。
-- `hnpdsyn/PhoneGuard` 与 `me.lucky/wasted` 不得复制、改写或直接复用；当前实现仅使用 Android SDK 公开 API、Shizuku 依赖与本项目原创 GPL-3.0 代码。
-- APK 内 `assets/GPL/` 打包许可与源码获取说明；第三方许可材料目录见 [third_party/](third_party/)。
+- `hnpdsyn/PhoneGuard` 与 `me.lucky/wasted` 不得复制、改写或直接复用；当前实现仅使用 Android SDK 公开 API、Shizuku 依赖与本项目原创代码。
+- APK 内 `assets/license/` 打包许可与源码获取说明；第三方许可材料目录见 [third_party/](third_party/)。
+- 以 GPL-3.0 发布的历史版本（[deliverables/](deliverables/)、[apk/](apk/)）授权永久有效，不因换标撤销；自本次换标起的新版本按 MulanPSL-2.0 授权。
 
 ## 功能
 
@@ -126,4 +127,4 @@ gradle :app:testDebugUnitTest
 
 ---
 
-本项目按 GPL-3.0 发布，欢迎修改与扩展，请保留版权声明与上游声明，并按 [LICENSE](LICENSE) 与 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 履行相应义务。
+本项目按木兰宽松许可证第 2 版（MulanPSL-2.0）发布，欢迎修改与扩展，请保留版权声明与上游声明，修改后标注改动，并按 [LICENSE](LICENSE) 与 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 履行相应义务。

@@ -10,7 +10,7 @@
 
 技术上是 Kotlin + AccessibilityService + TYPE_APPLICATION_OVERLAY + Shizuku。做了黑名单护盾、白名单、系统关键包保护、处理日志与持续压制，避免误伤桌面和输入法。另有 Root 守护监听与无障碍锁定（总开关可关）。
 
-许可 GPL-3.0，LICENSE / NOTICE / 第三方声明 / 传递依赖清单都齐。欢迎基于源码修改扩展。
+许可 MulanPSL-2.0（木兰宽松许可），LICENSE / NOTICE / 第三方声明 / 传递依赖清单都齐。欢迎基于源码修改扩展。
 
 仓库：https://github.com/lilining308-prog/tiedun
 Release（APK 按 stable/debug/archive 分类）：https://github.com/lilining308-prog/tiedun/releases/tag/v2.0

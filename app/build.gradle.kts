@@ -61,7 +61,7 @@ dependencies {
 
 /**
  * 从 releaseRuntimeClasspath 解析结果中提取模块坐标、JAR 内许可文件线索，
- * 生成可核对的传递依赖许可清单，满足 GPL/Apache/MIT 再分发义务的清单化要求。
+ * 生成可核对的传递依赖许可清单，满足 Apache/MIT 等依赖许可证再分发义务的清单化要求。
  */
 val generateDependencyLicenseReport by tasks.registering {
     group = "compliance"

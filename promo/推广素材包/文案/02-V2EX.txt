@@ -8,7 +8,7 @@
 · Shizuku / root 处理通道（系统包/桌面/输入法保护）
 · 黑名单护盾、白名单、持续压制、处理日志
 · Root 守护监听 + 无障碍锁定（总开关可关）
-· GPL-3.0，附 NOTICE / 第三方声明 / 依赖许可清单
+· MulanPSL-2.0（木兰宽松许可），附 NOTICE / 第三方声明 / 依赖许可清单
 · 欢迎 Fork / PR
 
 安装包已分类（stable / debug / archive），Release 可直接下：

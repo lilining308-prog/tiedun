@@ -1,5 +1,5 @@
 [Title]
-tiedun — open-source Android device protection & emergency escape tool (GPL-3.0)
+tiedun — open-source Android device protection & emergency escape tool (MulanPSL-2.0)
 
 [Body]
 If malware or a lockscreen app hijacks accessibility and traps you, physical keys still work. tiedun uses that:

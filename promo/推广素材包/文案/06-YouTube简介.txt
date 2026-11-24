@@ -4,7 +4,7 @@ tiedun 铁盾 · Android 设备防护与应急处理工具
 
 功能：物理按键触发全屏拦截，经 Shizuku/root 停止、停用或卸载问题组件。
 附带黑名单护盾、白名单保护、持续压制与 Root 守护。
-许可：GPL-3.0。欢迎基于此修改扩展。
+许可：MulanPSL-2.0（木兰宽松许可证第 2 版）。欢迎基于此修改扩展。
 
 仓库：https://github.com/lilining308-prog/tiedun
 Release 分类下载：https://github.com/lilining308-prog/tiedun/releases/tag/v2.0
