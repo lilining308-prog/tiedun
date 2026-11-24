@@ -4,13 +4,14 @@
 
 | SHA-256 | 对应文件（含相同内容的别名） | 首次包含当前字节的提交 | 材料状态 |
 |---|---|---|---|
-| `05B7B52209F1A2185FBCB0F46E8575CDAF1EDE49D1F4E7EA56CD83F64E17F7A7` | `apk/tiedun/stable/tiedun-shield-v3.0-release.apk`、`deliverables/tiedun/tiedun-shield-v3.0-release.apk` | [`eaf52cf`](https://github.com/lilining308-prog/tiedun/tree/eaf52cf478253b55e0b4a246efbded02d51ab424) | 换标后首个 MulanPSL-2.0 构建（2026-11-24）；APK 内置 `assets/license/` 木兰全套材料，无 `assets/GPL/`；由登记之提交的源码构建。 |
+| `05B7B52209F1A2185FBCB0F46E8575CDAF1EDE49D1F4E7EA56CD83F64E17F7A7` | `deliverables/lock-escape-current-release.apk`（2026-11-24 起为本字节；此前字节见 git 历史） | [`eaf52cf`](https://github.com/lilining308-prog/tiedun/tree/eaf52cf478253b55e0b4a246efbded02d51ab424) | 换标后 MulanPSL-2.0 release 构建（2026-11-24）；内置 `assets/license/` 木兰全套材料，无 `assets/GPL/`。该字节首入 `eaf52cf`（当时名为 `tiedun-shield-v3.0-release.apk`，后按原名原路径覆盖本文件并删除新名文件）。 |
+| `7732E371FB54219341E65B819C5D001ED124869B873358B562B6180F56F45BE8` | `deliverables/tiedun/tiedun-shield-debug.apk`、`deliverables/tiedun/tiedun-shield-v3.0-adb.apk`、`apk/tiedun/debug/tiedun-shield-debug.apk`、`apk/tiedun/debug/tiedun-shield-v3.0-adb.apk`（2026-11-24 起为本字节） | [`526cd70`](https://github.com/lilining308-prog/tiedun/tree/526cd70db179782d88a02687b81b6713dd44fb17) | 换标后 MulanPSL-2.0 debug 构建（2026-11-24），四文件字节相同；内置 `assets/license/` 木兰全套材料。按原名原路径覆盖旧包，旧字节保留在 git 历史。 |
 | `3AB9F8BD63A6A936CE513C13F6C648CE866F061659F94F5DDB9E5F045EE86A45` | `apk/tiedun-v2.0-official.apk`、`apk/tiedun-v2.0-release.apk`、`apk/tiedun-v2.0-su-direct-gpl.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0正式版-推荐下载.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0-SU直接启动-GPL版.apk` | [`103a8ca`](https://github.com/lilining308-prog/tiedun/tree/103a8ca353162aa447b377c04eb2e39d226560c3) | APK 含 GPL 材料；内置 NOTICE 仍含旧的 PhoneGuard 矛盾表述。分发时应随附对应源码与更正后的独立 NOTICE。 |
 | `551E5050D4ABD7E925B896C1D53E042F0A716D63D381B28CFA5D2BC7D7700F38` | `apk/tiedun-v2.0-debug.apk`、`apk/调试版-开发测试/铁盾-2.0调试版-开发测试.apk` | [`be9875e`](https://github.com/lilining308-prog/tiedun/tree/be9875eeb6e7b01cad14e51597e5965db7638c9f) | APK 含 GPL 材料；内置 NOTICE 含旧表述，源码与构建可重复性仍待验证。 |
 | `ABCFBC300D0FFD2E2C89A0DF9370B2271E8A1298400382C4B685C64CCD4CB711` | `apk/app-debug.apk`、`apk/调试版-开发测试/app-debug-当前调试版.apk` | [`c0700af`](https://github.com/lilining308-prog/tiedun/tree/c0700af38b75247823ea68497c9bff2f1fb7bc3b) | APK 含 GPL 材料；内置 NOTICE 含旧表述；“当前调试版”是历史文件名，不代表当前工作区源码。 |
 | `2A6FFFD2049B4EF6FD197602668C59093222F79B8BEA32E3816E9FF579EEC3B1` | `apk/tiedun-v0.1.0-debug.apk`、`apk/历史版本-不推荐/铁盾-0.1.0历史调试版-不推荐.apk` | [`7ca1879`](https://github.com/lilining308-prog/tiedun/tree/7ca1879bb276f1b45d199c9b4afce195d9d379d9) | 历史 APK 内无 `assets/GPL/`；仅保留历史溯源，不作为推荐下载。必须随包另附 GPL 文本和对应源码。 |
 
-当前工作区的 `app/build/outputs/apk/debug/app-debug.apk` 是本地构建结果，不在上表已提交的 APK 中；其 SHA-256 应在实际分发时重新计算，连同对应源码一起发布。
+2026-11-24 换新后，上表前两行即当前交付包的登记：`app/build/outputs/` 下本地构建与之字节一致。此前各旧包的字节保留在 git 历史（commit `526cd70` 之前），本表不把被覆盖的字节冒称为仍在仓库工作区。
 
 2026-10-03 本地验证：从当前工作区执行 `testDebugUnitTest`（175 项、0 失败）、`assembleDebug`、`assembleRelease`、`lintDebug` 均成功；这些本地构建没有发布到 `apk/` 或远端，不能替代已发布 APK 的源码与许可义务。发布前应以最终二进制重新计算哈希，不能使用临时构建目录的哈希当作长期发布标识。
 
