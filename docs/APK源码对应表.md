@@ -4,6 +4,7 @@
 
 | SHA-256 | 对应文件（含相同内容的别名） | 首次包含当前字节的提交 | 材料状态 |
 |---|---|---|---|
+| `05B7B52209F1A2185FBCB0F46E8575CDAF1EDE49D1F4E7EA56CD83F64E17F7A7` | `apk/tiedun/stable/tiedun-shield-v3.0-release.apk`、`deliverables/tiedun/tiedun-shield-v3.0-release.apk` | [`eaf52cf`](https://github.com/lilining308-prog/tiedun/tree/eaf52cf478253b55e0b4a246efbded02d51ab424) | 换标后首个 MulanPSL-2.0 构建（2026-11-24）；APK 内置 `assets/license/` 木兰全套材料，无 `assets/GPL/`；由登记之提交的源码构建。 |
 | `3AB9F8BD63A6A936CE513C13F6C648CE866F061659F94F5DDB9E5F045EE86A45` | `apk/tiedun-v2.0-official.apk`、`apk/tiedun-v2.0-release.apk`、`apk/tiedun-v2.0-su-direct-gpl.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0正式版-推荐下载.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0-SU直接启动-GPL版.apk` | [`103a8ca`](https://github.com/lilining308-prog/tiedun/tree/103a8ca353162aa447b377c04eb2e39d226560c3) | APK 含 GPL 材料；内置 NOTICE 仍含旧的 PhoneGuard 矛盾表述。分发时应随附对应源码与更正后的独立 NOTICE。 |
 | `551E5050D4ABD7E925B896C1D53E042F0A716D63D381B28CFA5D2BC7D7700F38` | `apk/tiedun-v2.0-debug.apk`、`apk/调试版-开发测试/铁盾-2.0调试版-开发测试.apk` | [`be9875e`](https://github.com/lilining308-prog/tiedun/tree/be9875eeb6e7b01cad14e51597e5965db7638c9f) | APK 含 GPL 材料；内置 NOTICE 含旧表述，源码与构建可重复性仍待验证。 |
 | `ABCFBC300D0FFD2E2C89A0DF9370B2271E8A1298400382C4B685C64CCD4CB711` | `apk/app-debug.apk`、`apk/调试版-开发测试/app-debug-当前调试版.apk` | [`c0700af`](https://github.com/lilining308-prog/tiedun/tree/c0700af38b75247823ea68497c9bff2f1fb7bc3b) | APK 含 GPL 材料；内置 NOTICE 含旧表述；“当前调试版”是历史文件名，不代表当前工作区源码。 |
