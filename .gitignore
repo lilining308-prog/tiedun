@@ -22,3 +22,5 @@ Thumbs.db
 # APK 分类后本地保留旧布局与产物副本，避免仓库体积翻倍
 apk/_legacy-original-layout/
 deliverables/apk/**/*.apk
+
+.memsearch/
