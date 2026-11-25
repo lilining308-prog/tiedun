@@ -29,14 +29,15 @@ import rikka.shizuku.Shizuku
  */
 object AdbAccessibilityLock {
 
-    private const val PKG = "com.lilining.lockescape"
-    private const val SERVICE_COMPONENT = "com.lilining.lockescape/.EscapeAccessibilityService"
+    const val PKG = "com.lilining.lockescape"
+    const val SERVICE_COMPONENT = "com.lilining.lockescape/.EscapeAccessibilityService"
+    private const val SERVICES_SETTING = "secure enabled_accessibility_services"
+    private const val ENABLED_SETTING = "secure accessibility_enabled"
 
     /** 电脑端等价命令（用户可自行 adb 执行）。 */
     val manualLockCommand: String =
-        "adb shell settings put secure enabled_accessibility_services " +
-            "\"$SERVICE_COMPONENT\"\n" +
-            "adb shell settings put secure accessibility_enabled 1"
+        "adb shell settings put " + SERVICES_SETTING + " \"" + SERVICE_COMPONENT + "\"\n" +
+            "adb shell settings put " + ENABLED_SETTING + " 1"
 
     fun isShizukuReady(): Boolean = try {
         Shizuku.pingBinder() && (Shizuku.isPreV11() ||
@@ -45,58 +46,59 @@ object AdbAccessibilityLock {
         false
     }
 
-    /** 锁定：把本应用无障碍服务写入 enabled_accessibility_services。 */
+    /**
+     * 锁定：把本应用无障碍服务写入 enabled_accessibility_services。
+     * 读取与写入各走一次 ShizukuProcess（写入与启用合并为单条命令）。
+     */
     fun lock(): Result {
         if (!isShizukuReady()) return Result(false, "Shizuku 未就绪，可手动执行 adb 命令")
-        val get = run("settings get secure enabled_accessibility_services")
-        if (!get.ok) return Result(false, "读取无障碍设置失败：${get.output}")
-        val current = get.output.trim().let { if (it == "null") "" else it }
-        if (current.contains(PKG)) return Result(true, "无障碍已处于锁定状态")
-        val next = if (current.isEmpty()) SERVICE_COMPONENT else "$current:$SERVICE_COMPONENT"
-        val put = run("settings put secure enabled_accessibility_services \"$next\"")
-        if (!put.ok) return Result(false, "写入无障碍列表失败：${put.output}")
-        val en = run("settings put secure accessibility_enabled 1")
-        return if (en.ok) Result(true, "ADB 式无障碍锁定成功")
-        else Result(false, "已写入服务但启用失败：${en.output}")
+        val get = ShizukuProcess.runForOutput("settings get " + SERVICES_SETTING)
+        if (!get.ok) return Result(false, "读取无障碍设置失败：" + get.output)
+        val current = normalizeServices(get.output)
+        if (containsOwn(current)) return Result(true, "无障碍已处于锁定状态")
+        val next = mergeServiceEntry(current, SERVICE_COMPONENT)
+        val put = ShizukuProcess.runForOutput(
+            "settings put " + SERVICES_SETTING + " \"" + next + "\" &&" +
+                " settings put " + ENABLED_SETTING + " 1"
+        )
+        return if (put.ok) Result(true, "ADB 式无障碍锁定成功")
+        else Result(false, "写入无障碍列表失败：" + put.output)
     }
 
     /** 解除锁定：仅移除本应用的条目，保留其它应用无障碍服务。 */
     fun unlock(): Result {
         if (!isShizukuReady()) return Result(false, "Shizuku 未就绪")
-        val get = run("settings get secure enabled_accessibility_services")
-        if (!get.ok) return Result(false, "读取无障碍设置失败：${get.output}")
-        val current = get.output.trim().let { if (it == "null") "" else it }
-        if (!current.contains(PKG)) return Result(true, "未处于锁定状态")
-        val remaining = current.split(':')
-            .filter { it.isNotBlank() && !it.startsWith("$PKG/") && it != PKG }
-            .joinToString(":")
-        val put = run("settings put secure enabled_accessibility_services \"$remaining\"")
+        val get = ShizukuProcess.runForOutput("settings get " + SERVICES_SETTING)
+        if (!get.ok) return Result(false, "读取无障碍设置失败：" + get.output)
+        val current = normalizeServices(get.output)
+        if (!containsOwn(current)) return Result(true, "未处于锁定状态")
+        val remaining = removeServiceEntry(current, PKG)
+        val put = ShizukuProcess.runForOutput(
+            "settings put " + SERVICES_SETTING + " \"" + remaining + "\""
+        )
         return if (put.ok) Result(true, "已解除 ADB 式无障碍锁定")
-        else Result(false, "解除失败：${put.output}")
+        else Result(false, "解除失败：" + put.output)
     }
 
     fun isLocked(): Boolean {
-        val get = run("settings get secure enabled_accessibility_services")
-        return get.ok && get.output.contains(PKG)
+        val get = ShizukuProcess.runForOutput("settings get " + SERVICES_SETTING)
+        return get.ok && containsOwn(normalizeServices(get.output))
     }
 
-    private fun run(command: String): CmdResult {
-        return try {
-            val method = Shizuku::class.java.getDeclaredMethod(
-                "newProcess",
-                Array<String>::class.java, Array<String>::class.java, String::class.java
-            )
-            method.isAccessible = true
-            val process = method.invoke(null, arrayOf("sh", "-c", command), null, null) as Process
-            val out = process.inputStream.bufferedReader().readText().trim()
-            val err = process.errorStream.bufferedReader().readText().trim()
-            val code = process.waitFor()
-            CmdResult(code == 0, listOf(out, err).filter { it.isNotEmpty() }.joinToString("\n"))
-        } catch (e: Exception) {
-            CmdResult(false, e.message ?: e.javaClass.simpleName)
-        }
+    internal fun normalizeServices(raw: String): String {
+        val trimmed = raw.trim()
+        return if (trimmed == "null") "" else trimmed
     }
+
+    internal fun containsOwn(current: String): Boolean = current.contains(PKG)
+
+    internal fun mergeServiceEntry(current: String, component: String): String =
+        if (current.isEmpty()) component else "$current:$component"
+
+    internal fun removeServiceEntry(current: String, pkg: String): String =
+        current.split(':')
+            .filter { it.isNotBlank() && !it.startsWith("$pkg/") && it != pkg }
+            .joinToString(":")
 
     data class Result(val ok: Boolean, val message: String)
-    private data class CmdResult(val ok: Boolean, val output: String)
 }

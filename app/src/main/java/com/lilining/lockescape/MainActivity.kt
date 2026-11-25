@@ -129,12 +129,40 @@ class MainActivity : AppCompatActivity() {
                 .show()
         }
 
+        if (BuildConfig.ADB_GUARD) {
+            binding.cardAdbGuard.visibility = android.view.View.VISIBLE
+            binding.btnAdbGuard.setOnClickListener {
+                if (AdbGuardDaemon.isRunning()) {
+                    AdbGuardDaemon.stop()
+                    Prefs.saveAdbGuardEnabled(this, false)
+                    Prefs.saveAdbGuardRunning(this, false)
+                    Prefs.addEscapeLog(this, "停止 ADB 无障碍守护")
+                    toast("ADB 守护已停止")
+                } else {
+                    val started = AdbGuardDaemon.start()
+                    Prefs.saveAdbGuardEnabled(this, started)
+                    Prefs.saveAdbGuardRunning(this, started)
+                    if (started) {
+                        Prefs.addEscapeLog(this, "启动 ADB 无障碍守护（Shizuku）")
+                        toast("ADB 守护已启动，每 2 秒自动锁定无障碍")
+                    } else {
+                        toast("无法启动 ADB 守护，请检查 Shizuku 就绪")
+                    }
+                }
+                refreshStatus()
+            }
+        }
+
         requestNotificationPermissionIfNeeded()
 
         // 若用户此前开启过锁定，进程重建后自动拉起守护
         if (Prefs.rootKeeperEnabled(this) || Prefs.rootDaemonEnabled(this)) {
             RootMonitorDaemon.setKeeperEnabled(this, Prefs.rootKeeperEnabled(this))
             RootMonitorDaemon.start(this)
+        }
+        if (BuildConfig.ADB_GUARD && Prefs.adbGuardEnabled(this)) {
+            AdbGuardDaemon.start()
+            Prefs.saveAdbGuardRunning(this, true)
         }
     }
 
@@ -173,6 +201,15 @@ class MainActivity : AppCompatActivity() {
             if (keeperLog.isNotBlank()) append("\n").append(keeperLog)
         }
         binding.btnRootDaemon.text = if (rootRunning) "停止 Root 守护监听" else "启动 Root 守护监听"
+
+        if (BuildConfig.ADB_GUARD) {
+            val guardRunning = AdbGuardDaemon.isRunning()
+            binding.btnAdbGuard.text = if (guardRunning) "停止 ADB 无障碍守护" else "启动 ADB 无障碍守护"
+            binding.tvAdbGuardStatus.text =
+                "ADB 守护：" + (if (guardRunning) "运行中（每 2 秒校验）" else "未运行") +
+                    " · Shizuku：" + (if (AdbAccessibilityLock.isShizukuReady()) "就绪" else "未就绪")
+            Prefs.saveAdbGuardRunning(this, guardRunning)
+        }
 
         val adbLocked = AdbAccessibilityLock.isLocked()
         binding.btnAdbLock.text = if (adbLocked) "解除 ADB 无障碍锁定" else "ADB 无障碍锁定"

@@ -31,6 +31,21 @@ android {
             )
         }
     }
+
+    // 变体：standard=常规包；adb=独立变体，内置 Shizuku 优化的 ADB 无障碍守护
+    flavorDimensions += "variant"
+    productFlavors {
+        create("standard") {
+            dimension = "variant"
+            buildConfigField("boolean", "ADB_GUARD", "false")
+        }
+        create("adb") {
+            dimension = "variant"
+            buildConfigField("boolean", "ADB_GUARD", "true")
+            versionNameSuffix = "-adb"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -40,6 +55,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -69,7 +85,9 @@ val generateDependencyLicenseReport by tasks.registering {
     outputs.file(layout.projectDirectory.file("../docs/DEPENDENCY_LICENSES.md"))
 
     doLast {
-        val configuration = configurations.getByName("releaseRuntimeClasspath")
+        val configuration = configurations.first {
+            it.name.endsWith("ReleaseRuntimeClasspath")
+        }
         val resolved = configuration.incoming.resolutionResult
         val modules = linkedSetOf<String>()
         val visited = hashSetOf<Any>()

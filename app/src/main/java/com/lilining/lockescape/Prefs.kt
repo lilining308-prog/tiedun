@@ -37,6 +37,8 @@ object Prefs {
     private const val KEY_TRIGGER_COUNT = "trigger_count"
     private const val KEY_TRIGGER_WINDOW_MS = "trigger_window_ms"
     private const val KEY_LONG_PRESS_MS = "long_press_ms"
+    private const val KEY_ADB_GUARD = "adb_accessibility_guard"
+    private const val KEY_ADB_GUARD_RUNNING = "adb_accessibility_guard_running"
     private const val MAX_LOGS = 20
 
     fun currentTopPackage(ctx: Context): String =
@@ -216,6 +218,22 @@ object Prefs {
             ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
                 .getLong(KEY_LONG_PRESS_MS, VolumeKeyTrigger.LONG_PRESS_MS)
         )
+
+    /** ADB 无障碍守护开关（用户意图）。 */
+    fun adbGuardEnabled(ctx: Context): Boolean =
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE).getBoolean(KEY_ADB_GUARD, false)
+
+    fun saveAdbGuardEnabled(ctx: Context, value: Boolean) {
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit().putBoolean(KEY_ADB_GUARD, value).apply()
+    }
+
+    /** ADB 守护运行位（last-known 状态，用于重启后恢复显示）。 */
+    fun adbGuardRunning(ctx: Context): Boolean =
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE).getBoolean(KEY_ADB_GUARD_RUNNING, false)
+
+    fun saveAdbGuardRunning(ctx: Context, value: Boolean) {
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE).edit().putBoolean(KEY_ADB_GUARD_RUNNING, value).apply()
+    }
 
     fun saveLongPressMs(ctx: Context, value: Long) {
         ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
