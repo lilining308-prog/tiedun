@@ -34,6 +34,9 @@ object Prefs {
     private const val KEY_ROOT_KEEPER = "root_accessibility_keeper"
     private const val KEY_ROOT_DAEMON = "root_monitor_enabled"
     private const val KEY_SUPPRESS_ALWAYS_ON = "suppress_always_on"
+    private const val KEY_TRIGGER_COUNT = "trigger_count"
+    private const val KEY_TRIGGER_WINDOW_MS = "trigger_window_ms"
+    private const val KEY_LONG_PRESS_MS = "long_press_ms"
     private const val MAX_LOGS = 20
 
     fun currentTopPackage(ctx: Context): String =
@@ -176,6 +179,48 @@ object Prefs {
         ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
             .edit()
             .putBoolean(KEY_SUPPRESS_ALWAYS_ON, enabled)
+            .apply()
+    }
+
+    /** 触发参数：连按次数（2..10，默认 TRIGGER_COUNT）。 */
+    fun triggerCount(ctx: Context): Int =
+        VolumeKeyTrigger.normalizeTriggerCount(
+            ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+                .getInt(KEY_TRIGGER_COUNT, VolumeKeyTrigger.TRIGGER_COUNT)
+        )
+
+    fun saveTriggerCount(ctx: Context, value: Int) {
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putInt(KEY_TRIGGER_COUNT, VolumeKeyTrigger.normalizeTriggerCount(value))
+            .apply()
+    }
+
+    /** 触发参数：连按时间窗毫秒（300..5000，默认 TRIGGER_WINDOW_MS）。 */
+    fun triggerWindowMs(ctx: Context): Long =
+        VolumeKeyTrigger.normalizeTriggerWindowMs(
+            ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+                .getLong(KEY_TRIGGER_WINDOW_MS, VolumeKeyTrigger.TRIGGER_WINDOW_MS)
+        )
+
+    fun saveTriggerWindowMs(ctx: Context, value: Long) {
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putLong(KEY_TRIGGER_WINDOW_MS, VolumeKeyTrigger.normalizeTriggerWindowMs(value))
+            .apply()
+    }
+
+    /** 触发参数：长按音量下时长毫秒（300..5000，默认 LONG_PRESS_MS）。 */
+    fun longPressMs(ctx: Context): Long =
+        VolumeKeyTrigger.normalizeLongPressMs(
+            ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+                .getLong(KEY_LONG_PRESS_MS, VolumeKeyTrigger.LONG_PRESS_MS)
+        )
+
+    fun saveLongPressMs(ctx: Context, value: Long) {
+        ctx.getSharedPreferences(NAME, Context.MODE_PRIVATE)
+            .edit()
+            .putLong(KEY_LONG_PRESS_MS, VolumeKeyTrigger.normalizeLongPressMs(value))
             .apply()
     }
 }

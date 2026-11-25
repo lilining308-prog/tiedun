@@ -41,6 +41,20 @@
             android:label="@string/root_launcher_label"
             android:theme="@style/Theme.LockEscape" />
 
+        <!-- 触发参数设置 -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="触发参数设置"
+            android:theme="@style/Theme.LockEscape" />
+
+        <!-- 黑名单管理 -->
+        <activity
+            android:name=".BlacklistActivity"
+            android:exported="false"
+            android:label="黑名单管理"
+            android:theme="@style/Theme.LockEscape" />
+
         <!-- 全屏逃生拦截界面 -->
         <activity
             android:name=".EscapeActivity"

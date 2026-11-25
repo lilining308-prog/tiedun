@@ -56,6 +56,7 @@ class EscapeAccessibilityService : AccessibilityService() {
 
         when (event.action) {
             KeyEvent.ACTION_DOWN -> {
+                volumeKeyTrigger.configure(Prefs.triggerCount(this), Prefs.triggerWindowMs(this))
                 val decision = volumeKeyTrigger.onVolumeDown(
                     event.keyCode,
                     event.eventTime,
@@ -64,7 +65,7 @@ class EscapeAccessibilityService : AccessibilityService() {
                 if (decision.scheduleLongPress) {
                     cancelLongPress()
                     longPressTask = Runnable { triggerEscape() }
-                    handler.postDelayed(longPressTask!!, VolumeKeyTrigger.LONG_PRESS_MS)
+                    handler.postDelayed(longPressTask!!, Prefs.longPressMs(this))
                 }
                 if (decision.triggerEscape) {
                     triggerEscape()

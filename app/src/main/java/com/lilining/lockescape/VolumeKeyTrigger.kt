@@ -16,11 +16,22 @@
 
 package com.lilining.lockescape
 
-class VolumeKeyTrigger {
+class VolumeKeyTrigger(
+    triggerCount: Int = TRIGGER_COUNT,
+    triggerWindowMs: Long = TRIGGER_WINDOW_MS
+) {
+    private var triggerCount = normalizeTriggerCount(triggerCount)
+    private var triggerWindowMs = normalizeTriggerWindowMs(triggerWindowMs)
     private var sequenceStartTime = 0L
     private var consecutiveCount = 0
     private var volumeDownPressed = false
     private var volumeUpPressed = false
+
+    /** 运行时同步触发参数（设置界面保存后在按键事件中生效）。 */
+    fun configure(triggerCount: Int, triggerWindowMs: Long) {
+        this.triggerCount = normalizeTriggerCount(triggerCount)
+        this.triggerWindowMs = normalizeTriggerWindowMs(triggerWindowMs)
+    }
 
     fun onVolumeDown(keyCode: Int, now: Long, isRepeat: Boolean = false): Decision {
         if (keyCode != KEY_VOLUME_DOWN && keyCode != KEY_VOLUME_UP) return Decision(false, false, false)
@@ -36,13 +47,13 @@ class VolumeKeyTrigger {
             volumeUpPressed = true
         }
 
-        if (consecutiveCount == 0 || now < sequenceStartTime || now - sequenceStartTime > TRIGGER_WINDOW_MS) {
+        if (consecutiveCount == 0 || now < sequenceStartTime || now - sequenceStartTime > triggerWindowMs) {
             consecutiveCount = 0
             sequenceStartTime = now
         }
         consecutiveCount++
 
-        val triggerEscape = consecutiveCount >= TRIGGER_COUNT
+        val triggerEscape = consecutiveCount >= triggerCount
         if (triggerEscape) {
             consecutiveCount = 0
             sequenceStartTime = 0L
@@ -86,5 +97,16 @@ class VolumeKeyTrigger {
         const val TRIGGER_COUNT = 4
         const val TRIGGER_WINDOW_MS = 1500L
         const val LONG_PRESS_MS = 1500L
+
+        const val MIN_TRIGGER_COUNT = 2
+        const val MAX_TRIGGER_COUNT = 10
+        const val MIN_PRESS_MS = 300L
+        const val MAX_PRESS_MS = 5000L
+
+        internal fun normalizeTriggerCount(value: Int): Int = value.coerceIn(MIN_TRIGGER_COUNT, MAX_TRIGGER_COUNT)
+
+        internal fun normalizeTriggerWindowMs(value: Long): Long = value.coerceIn(MIN_PRESS_MS, MAX_PRESS_MS)
+
+        internal fun normalizeLongPressMs(value: Long): Long = value.coerceIn(MIN_PRESS_MS, MAX_PRESS_MS)
     }
 }

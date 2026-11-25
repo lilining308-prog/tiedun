@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         binding.btnRootEscape.setOnClickListener {
             startActivity(Intent(this, RootLauncherActivity::class.java))
         }
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        binding.btnBlacklist.setOnClickListener {
+            startActivity(Intent(this, BlacklistActivity::class.java))
+        }
 
         binding.switchRootKeeper.isChecked = Prefs.rootKeeperEnabled(this)
         binding.switchRootKeeper.setOnCheckedChangeListener { _, checked ->
@@ -94,9 +100,9 @@ class MainActivity : AppCompatActivity() {
                 Prefs.addEscapeLog(this, "停止 Root 守护监听")
                 toast("Root 守护已停止")
             } else {
-                val started = RootMonitorDaemon.start(this)
-                Prefs.saveRootDaemonEnabled(this, started)
-                toast(if (started) "Root 守护已启动" else "Root 守护启动失败")
+                val result = RootChannel.startMonitor(this)
+                Prefs.saveRootDaemonEnabled(this, result.available)
+                toast(result.message)
             }
             refreshStatus()
         }

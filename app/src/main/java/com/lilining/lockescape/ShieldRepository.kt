@@ -45,7 +45,8 @@ class ShieldRepository(context: Context) {
     }
 
     private fun saveTarget(target: ProtectedTargetEntity) {
-        val targets = readTargets(target.kind).filterNot { it.packageName == target.packageName } + target
+        val clean = ProtectedTargetEntity(target.packageName, target.kind, sanitizeLabel(target.label))
+        val targets = readTargets(target.kind).filterNot { it.packageName == target.packageName } + clean
         prefs.edit().putString(target.kind, targets.joinToString("\n") { "${it.packageName}|${it.label}" }).apply()
     }
 
@@ -57,4 +58,10 @@ class ShieldRepository(context: Context) {
         }
         .sortedBy { it.label.lowercase() }
         .toList()
+
+    companion object {
+        /** 标签不允许携带分隔符或换行，否则会破坏 pkg|label 序列化。 */
+        internal fun sanitizeLabel(label: String): String =
+            label.replace('|', '/').replace('\r', ' ').replace('\n', ' ').trim()
+    }
 }

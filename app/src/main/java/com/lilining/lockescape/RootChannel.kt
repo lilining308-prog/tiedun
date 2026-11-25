@@ -33,13 +33,25 @@ object RootChannel {
         }
     }
 
+    /** 启动 root 守护监听器（前台包名采集 + 可选无障碍锁定）。 */
     fun startMonitor(context: Context): Result {
         val probe = probe()
         return if (probe.available) {
-            // The device-specific monitor is intentionally gated until its event source is verified.
-            Result(false, "Root 已授权，监听器待设备适配验证")
+            if (RootMonitorDaemon.start(context)) {
+                Result(true, "Root 守护监听已启动")
+            } else {
+                Result(false, "Root 守护启动失败，请检查 su 授权")
+            }
         } else probe
     }
+
+    /** 停止 root 守护监听器。 */
+    fun stopMonitor(context: Context) {
+        RootMonitorDaemon.stop(context)
+    }
+
+    /** 守护监听器是否在运行。 */
+    fun isMonitorRunning(): Boolean = RootMonitorDaemon.isRunning()
 
     data class Result(val available: Boolean, val message: String)
 }
