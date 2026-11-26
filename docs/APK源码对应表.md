@@ -6,7 +6,7 @@
 |---|---|---|---|
 | `CA16A39A7A62CD6198BBCE726DBAF5F04CBDFE7863C7BFEA15366EE00CABFAB7` | `deliverables/lock-escape-current-release.apk`（2026-11-26 起为本字节；此前字节见 git 历史） | [`21b4cc3`](https://github.com/lilining308-prog/tiedun/tree/21b4cc36999e9bcf8704e62ef0e16378b492e405) | standard 变体 MulanPSL-2.0 release 构建（2026-11-26）；内置 `assets/license/` 木兰全套材料，无 `assets/GPL/`。按原名原路径覆盖旧包，被覆盖字节保留在 git 历史。 |
 | `E6881E944B1FCFA5DCE18A82A36244A73ADFAB468026668D8D70C1CC19144F4A` | `deliverables/tiedun/tiedun-shield-debug.apk`、`apk/tiedun/debug/tiedun-shield-debug.apk`（2026-11-26 起为本字节） | [`21b4cc3`](https://github.com/lilining308-prog/tiedun/tree/21b4cc36999e9bcf8704e62ef0e16378b492e405) | standard 变体 MulanPSL-2.0 debug 构建（2026-11-26），两文件字节相同；内置 `assets/license/` 木兰全套材料。按原名原路径覆盖旧包，被覆盖字节保留在 git 历史。 |
-| `08CEDFC69A3BDE70822CF30ED4FF7E2D07C581766E753780254F24FE19FB2E09` | `deliverables/tiedun/tiedun-shield-v3.0-adb.apk`、`apk/tiedun/debug/tiedun-shield-v3.0-adb.apk`（2026-11-26 起为本字节） | [`21b4cc3`](https://github.com/lilining308-prog/tiedun/tree/21b4cc36999e9bcf8704e62ef0e16378b492e405) | **adb 变体** MulanPSL-2.0 debug 构建（2026-11-26）：内置 Shizuku 优化的 ADB 无障碍守护（`ADB_GUARD` 门控），与 debug 包不再同字节。内置 `assets/license/` 木兰全套材料。 |
+| `07C2B08CE291A1E877A42F6C3A519429EA6BF75E084259FF21DAABB95E169384` | `deliverables/tiedun/tiedun-shield-v3.0-adb.apk`、`apk/tiedun/debug/tiedun-shield-v3.0-adb.apk`（2026-11-26 UI 重绘后为本字节） | [`57a2ac5`](https://github.com/lilining308-prog/tiedun/tree/57a2ac590603f6388f0fbeec55e431d419f2e1da) | **adb 变体** MulanPSL-2.0 debug 构建（2026-11-26，Material 3 UI 重绘）：内置 Shizuku 优化的 ADB 无障碍守护（`ADB_GUARD` 门控）。内置 `assets/license/` 木兰全套材料。上一字节 `08CEDFC6…` 保留在 git 历史（`21b4cc3`）。 |
 | `3AB9F8BD63A6A936CE513C13F6C648CE866F061659F94F5DDB9E5F045EE86A45` | `apk/tiedun-v2.0-official.apk`、`apk/tiedun-v2.0-release.apk`、`apk/tiedun-v2.0-su-direct-gpl.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0正式版-推荐下载.apk`、`apk/推荐下载-2.0正式版/铁盾-2.0-SU直接启动-GPL版.apk` | [`103a8ca`](https://github.com/lilining308-prog/tiedun/tree/103a8ca353162aa447b377c04eb2e39d226560c3) | APK 含 GPL 材料；内置 NOTICE 仍含旧的 PhoneGuard 矛盾表述。分发时应随附对应源码与更正后的独立 NOTICE。 |
 | `551E5050D4ABD7E925B896C1D53E042F0A716D63D381B28CFA5D2BC7D7700F38` | `apk/tiedun-v2.0-debug.apk`、`apk/调试版-开发测试/铁盾-2.0调试版-开发测试.apk` | [`be9875e`](https://github.com/lilining308-prog/tiedun/tree/be9875eeb6e7b01cad14e51597e5965db7638c9f) | APK 含 GPL 材料；内置 NOTICE 含旧表述，源码与构建可重复性仍待验证。 |
 | `ABCFBC300D0FFD2E2C89A0DF9370B2271E8A1298400382C4B685C64CCD4CB711` | `apk/app-debug.apk`、`apk/调试版-开发测试/app-debug-当前调试版.apk` | [`c0700af`](https://github.com/lilining308-prog/tiedun/tree/c0700af38b75247823ea68497c9bff2f1fb7bc3b) | APK 含 GPL 材料；内置 NOTICE 含旧表述；“当前调试版”是历史文件名，不代表当前工作区源码。 |
@@ -15,6 +15,8 @@
 2026-11-26 adb 变体构建换新后，上表前三行即当前交付包的登记：`tiedun-shield-v3.0-adb.apk` 自此为独立变体（Shizuku 无障碍守护），不再与 `tiedun-shield-debug.apk` 同字节。2026-11-25 护盾三功能构建换新后，上表前两行曾是当前交付包的登记：`app/build/outputs/` 下本地构建与之字节一致。被覆盖字节保留在 git 历史（2026-11-24 换标构建见 commit `a12f063` 之前的版本，GPL 时期旧包见 commit `526cd70` 之前的版本），本表不把被覆盖的字节冒称为仍在仓库工作区。
 
 2026-11-25 本地验证：`testDebugUnitTest`（184 项、0 失败）、`assembleDebug`、`assembleRelease` 均成功；新 APK 内置 `assets/license/` 木兰全套材料、无 `assets/GPL/`。
+
+2026-11-26 UI 重绘（Material 3 现代风，全部界面）后 adb 变体换新：`test`（0 失败）、`assembleAdbDebug` 成功；仅按既定口径换 `tiedun-shield-v3.0-adb.apk` 一个产物，其余包仍为前次字节。上一行验证记录：
 
 2026-11-26 本地验证：`test`（standard/adb × debug/release 四变体单测，0 失败）、`assembleStandardRelease`、`assembleStandardDebug`、`assembleAdbRelease`、`assembleAdbDebug` 均成功；新 APK 内置 `assets/license/` 木兰全套材料、无 `assets/GPL/`。
 
