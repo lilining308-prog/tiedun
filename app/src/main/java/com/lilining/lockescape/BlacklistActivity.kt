@@ -51,8 +51,8 @@ class BlacklistActivity : AppCompatActivity() {
         }
         val label = binding.etLabel.text.toString().trim().ifBlank { pkg }
         repo.addBlacklist(pkg, label)
-        binding.etPkg.text.clear()
-        binding.etLabel.text.clear()
+        binding.etPkg.text?.clear()
+        binding.etLabel.text?.clear()
         refresh()
         toast("已加入黑名单：" + pkg)
     }
